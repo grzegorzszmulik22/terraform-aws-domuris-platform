@@ -1,11 +1,3 @@
-locals {
-  tags = merge(var.tags, {
-    Project     = var.project
-    Environment = var.environment
-    ManagedBy   = "terraform"
-  })
-}
-
 resource "aws_kms_key" "this" {
   description             = "${var.project} ${var.environment} application key"
   deletion_window_in_days = var.deletion_window_in_days

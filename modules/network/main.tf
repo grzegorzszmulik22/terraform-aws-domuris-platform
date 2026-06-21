@@ -1,16 +1,3 @@
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-
-locals {
-  name = "${var.project}-${var.environment}"
-  tags = merge(var.tags, {
-    Project     = var.project
-    Environment = var.environment
-    ManagedBy   = "terraform"
-  })
-}
-
 resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true

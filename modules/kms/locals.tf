@@ -1,0 +1,7 @@
+locals {
+  tags = merge(var.tags, {
+    Project     = var.project
+    Environment = var.environment
+    ManagedBy   = "terraform"
+  })
+}

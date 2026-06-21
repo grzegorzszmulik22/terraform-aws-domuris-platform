@@ -4,8 +4,6 @@ resource "aws_cloudwatch_log_group" "this" {
   tags              = var.tags
 }
 
-data "aws_region" "current" {}
-
 resource "aws_security_group" "qdrant" {
   name        = "${var.name}-qdrant"
   description = "Internal Qdrant service"
@@ -116,17 +114,6 @@ resource "aws_efs_access_point" "qdrant" {
   tags = merge(var.tags, {
     Name = "${var.name}-qdrant"
   })
-}
-
-data "aws_iam_policy_document" "task_assume" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ecs-tasks.amazonaws.com"]
-    }
-  }
 }
 
 resource "aws_iam_role" "execution" {

@@ -4,19 +4,6 @@ resource "aws_cloudwatch_log_group" "this" {
   tags              = var.tags
 }
 
-data "aws_region" "current" {}
-
-data "aws_iam_policy_document" "task_assume" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ecs-tasks.amazonaws.com"]
-    }
-  }
-}
-
 resource "aws_iam_role" "execution" {
   name               = "${var.name}-execution"
   assume_role_policy = data.aws_iam_policy_document.task_assume.json
@@ -58,22 +45,6 @@ resource "aws_security_group" "service" {
   tags = merge(var.tags, {
     Name = "${var.name}-service"
   })
-}
-
-locals {
-  environment = [
-    for key, value in var.environment : {
-      name  = key
-      value = value
-    }
-  ]
-
-  secrets = [
-    for key, arn in var.secret_arns : {
-      name      = key
-      valueFrom = arn
-    }
-  ]
 }
 
 resource "aws_ecs_task_definition" "this" {

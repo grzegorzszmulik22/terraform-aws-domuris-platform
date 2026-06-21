@@ -1,14 +1,3 @@
-locals {
-  name = "${var.project}-${var.environment}"
-
-  tags = {
-    Project     = var.project
-    Environment = var.environment
-    ManagedBy   = "terraform"
-    Owner       = "platform"
-  }
-}
-
 module "network" {
   source = "../../modules/network"
 
@@ -143,29 +132,6 @@ module "qdrant" {
   kms_key_id                     = module.kms.key_id
   service_discovery_namespace_id = aws_service_discovery_private_dns_namespace.this.id
   tags                           = local.tags
-}
-
-data "aws_iam_policy_document" "app_task" {
-  statement {
-    sid     = "ReadRuntimeSecrets"
-    actions = ["secretsmanager:GetSecretValue"]
-    resources = concat(
-      values(module.secrets.secret_arns),
-      [module.rds.master_user_secret_arn]
-    )
-  }
-
-  statement {
-    sid       = "UseRuntimeKmsKey"
-    actions   = ["kms:Decrypt", "kms:GenerateDataKey"]
-    resources = [module.kms.key_arn]
-  }
-
-  statement {
-    sid       = "WriteBackupsAndExports"
-    actions   = ["s3:GetObject", "s3:PutObject", "s3:AbortMultipartUpload"]
-    resources = ["${module.backups.bucket_arn}/*"]
-  }
 }
 
 module "api" {
