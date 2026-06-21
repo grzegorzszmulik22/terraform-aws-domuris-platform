@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+dnf update -y
+dnf install -y amazon-cloudwatch-agent jq
+
+cat >/etc/domuris-worker.env <<EOF
+ENVIRONMENT=${environment}
+ARTIFACT_BUCKET=${artifact_bucket}
+INSTANCE_NAME=${instance_name}
+INSTANCE_ORDINAL=${instance_ordinal}
+EOF
+
+systemctl enable amazon-cloudwatch-agent
+systemctl restart amazon-cloudwatch-agent

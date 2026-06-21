@@ -1,0 +1,9 @@
+aws_region  = "eu-central-1"
+project     = "domuris"
+environment = "staging"
+domain_name = "staging.example.com"
+
+# Supply this through CI/CD or a local tfvars file that is never committed.
+# redis_auth_token = "minimum-16-character-secret"
+
+notification_email_endpoints = []
