@@ -1,14 +1,27 @@
+# Terraform working directories and provider lock files (modules do not pin providers)
 .terraform/
 .terraform.lock.hcl
-terraform.tfstate
-terraform.tfstate.*
-*.tfvars
-!*.tfvars.example
+
+# State, plans and logs
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
 tfplan
 *.tfplan
 crash.log
 crash.*.log
+
+# Variable files may contain real values; only examples are committed
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Local overrides
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# CLI configuration
+.terraformrc
+terraform.rc
