@@ -31,7 +31,7 @@ Each module has its own README with the full inputs and outputs tables.
 
 ```hcl
 module "network" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/network?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/network?ref=v0.2.0"
 
   project              = "domuris"
   environment          = "staging"
@@ -41,7 +41,7 @@ module "network" {
 }
 
 module "kms" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/kms?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/kms?ref=v0.2.0"
 
   project     = "domuris"
   environment = "staging"
@@ -49,7 +49,7 @@ module "kms" {
 }
 
 module "rds" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/rds-postgres?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/rds-postgres?ref=v0.2.0"
 
   name                       = "domuris-staging"
   vpc_id                     = module.network.vpc_id

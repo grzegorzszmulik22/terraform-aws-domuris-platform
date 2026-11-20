@@ -18,7 +18,7 @@ See [`examples/`](../../examples) for a full composition.
 
 ```hcl
 module "kms" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/kms?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/kms?ref=v0.2.0"
   # required inputs listed below
 }
 ```

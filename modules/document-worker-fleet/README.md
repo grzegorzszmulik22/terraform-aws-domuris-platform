@@ -24,7 +24,7 @@ See [`examples/`](../../examples) for a full composition.
 
 ```hcl
 module "document_worker_fleet" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/document-worker-fleet?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/document-worker-fleet?ref=v0.2.0"
   # required inputs listed below
 }
 ```

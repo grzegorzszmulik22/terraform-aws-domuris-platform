@@ -21,7 +21,7 @@ See [`examples/`](../../examples) for a full composition.
 
 ```hcl
 module "cloudwatch_alarms" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/cloudwatch-alarms?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/cloudwatch-alarms?ref=v0.2.0"
   # required inputs listed below
 }
 ```

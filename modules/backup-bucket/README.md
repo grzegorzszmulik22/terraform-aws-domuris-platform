@@ -21,7 +21,7 @@ See [`examples/`](../../examples) for a full composition.
 
 ```hcl
 module "backup_bucket" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/backup-bucket?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/backup-bucket?ref=v0.2.0"
   # required inputs listed below
 }
 ```

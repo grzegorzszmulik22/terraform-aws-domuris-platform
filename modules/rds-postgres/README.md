@@ -24,7 +24,7 @@ See [`examples/`](../../examples) for a full composition.
 
 ```hcl
 module "rds_postgres" {
-  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/rds-postgres?ref=v0.1.1"
+  source = "git::https://github.com/grzegorzszmulik22/terraform-aws-domuris-platform.git//modules/rds-postgres?ref=v0.2.0"
   # required inputs listed below
 }
 ```
