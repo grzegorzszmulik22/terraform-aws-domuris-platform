@@ -29,6 +29,10 @@ module "ecs_api_service" {
 ```
 
 <!-- BEGIN_TF_DOCS -->
+## Security defaults note
+
+The task execution role gets `secretsmanager:GetSecretValue` on exactly the ARNs in `secret_arns` (and `kms:Decrypt` on `secret_kms_key_arns`), because ECS injects container secrets with the execution role.
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -47,6 +51,7 @@ module "ecs_api_service" {
 | `environment` | Plain environment variables passed to the container. | `map(string)` | `{}` | no |
 | `memory` | Fargate task memory in MiB. | `number` | `1024` | no |
 | `secret_arns` | Secrets Manager ARNs injected as container secrets, keyed by environment variable name. | `map(string)` | `{}` | no |
+| `secret_kms_key_arns` | Customer-managed KMS key ARNs that encrypt the secrets in secret_arns; the execution role may decrypt with them. Leave empty for the AWS-managed key. | `list(string)` | `[]` | no |
 | `tags` | Tags applied to resources. | `map(string)` | `{}` | no |
 | `task_policy_json` | Optional IAM policy JSON attached inline to the task role. | `string` | `null` | no |
 

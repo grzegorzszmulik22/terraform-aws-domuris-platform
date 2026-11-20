@@ -15,6 +15,36 @@ resource "aws_iam_role_policy_attachment" "execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+# ECS reads container secrets with the execution role, not the task role, so
+# the execution role needs read access to exactly the injected secrets (and
+# their customer-managed KMS keys, if any).
+data "aws_iam_policy_document" "execution_secrets" {
+  count = length(var.secret_arns) == 0 ? 0 : 1
+
+  statement {
+    sid       = "ReadInjectedSecrets"
+    actions   = ["secretsmanager:GetSecretValue"]
+    resources = distinct(values(var.secret_arns))
+  }
+
+  dynamic "statement" {
+    for_each = length(var.secret_kms_key_arns) == 0 ? [] : [1]
+    content {
+      sid       = "DecryptInjectedSecrets"
+      actions   = ["kms:Decrypt"]
+      resources = var.secret_kms_key_arns
+    }
+  }
+}
+
+resource "aws_iam_role_policy" "execution_secrets" {
+  count = length(var.secret_arns) == 0 ? 0 : 1
+
+  name   = "${var.name}-execution-secrets"
+  role   = aws_iam_role.execution.id
+  policy = data.aws_iam_policy_document.execution_secrets[0].json
+}
+
 resource "aws_iam_role" "task" {
   name               = "${var.name}-task"
   assume_role_policy = data.aws_iam_policy_document.task_assume.json

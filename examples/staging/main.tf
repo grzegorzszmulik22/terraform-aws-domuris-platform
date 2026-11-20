@@ -147,6 +147,7 @@ module "api" {
   additional_security_group_ids = [aws_security_group.app_identity.id]
   desired_count                 = 2
   task_policy_json              = data.aws_iam_policy_document.app_task.json
+  secret_kms_key_arns           = [module.kms.key_arn]
 
   environment = {
     ENVIRONMENT   = var.environment
@@ -175,6 +176,7 @@ module "worker" {
   additional_security_group_ids = [aws_security_group.app_identity.id]
   desired_count                 = 1
   task_policy_json              = data.aws_iam_policy_document.app_task.json
+  secret_kms_key_arns           = [module.kms.key_arn]
 
   environment = {
     ENVIRONMENT   = var.environment

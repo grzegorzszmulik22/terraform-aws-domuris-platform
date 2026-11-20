@@ -65,6 +65,12 @@ variable "secret_arns" {
   default     = {}
 }
 
+variable "secret_kms_key_arns" {
+  type        = list(string)
+  description = "Customer-managed KMS key ARNs that encrypt the secrets in secret_arns; the execution role may decrypt with them. Leave empty for the AWS-managed key."
+  default     = []
+}
+
 variable "task_policy_json" {
   type        = string
   description = "Optional IAM policy JSON attached inline to the task role."
